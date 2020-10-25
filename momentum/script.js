@@ -26,13 +26,13 @@ function showTime() {
     month = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
 
   date_time = week[weekDay] + ", " + day + " " + month[month_num];
-  
+
   document.getElementById("doc_time").innerHTML = date_time;
   time.innerHTML = `${hour}<span>:</span>${addZero(min)}<span>:</span>${addZero(
     sec
   )}`;
-  
-  if(min === 0 && sec === 0)  setBgGreet();
+
+  if (min === 0 && sec === 0) setBgGreet();
 
   setTimeout(showTime, 1000);
 }
@@ -42,34 +42,38 @@ function addZero(n) {
 }
 
 function setBgGreet() {
-  let today = new Date(),
-    hour = today.getHours();
-    picNum = today.getHours();
+  let today = new Date();
+  let hour = today.getHours();
+  picNum = today.getHours();
 
-    if (hour >= 6 && hour < 12) {
-      background(Math.floor(Math.random() * Math.floor(6)) + 6);
-      greeting.textContent = 'Good Morning, ';
-    } else if (hour >= 12 && hour < 18) {
-      background(Math.floor(Math.random() * Math.floor(6)) + 12);
-      greeting.textContent = 'Good Afternoon, ';
-    } else if (hour >= 18 && hour < 24) {
-      background(Math.floor(Math.random() * Math.floor(6)) + 18);
-      greeting.textContent = 'Good Evening, ';
-    } else {
-      background(Math.floor(Math.random() * Math.floor(6)));
-      greeting.textContent = 'Good Night, ';
-    } 
+  if (hour >= 6 && hour < 12) {
+    background(Math.floor(Math.random() * Math.floor(6)) + 6);
+    greeting.textContent = 'Good Morning, ';
+  } else if (hour >= 12 && hour < 18) {
+    background(Math.floor(Math.random() * Math.floor(6)) + 12);
+    greeting.textContent = 'Good Afternoon, ';
+  } else if (hour >= 18 && hour < 24) {
+    background(Math.floor(Math.random() * Math.floor(6)) + 18);
+    greeting.textContent = 'Good Evening, ';
+  } else {
+    background(Math.floor(Math.random() * Math.floor(6)));
+    greeting.textContent = 'Good Night, ';
+  }
 }
-  
+
+
 changeBg.addEventListener('click', () => {
-  changeBg.disabled = true;
-  setTimeout(function() { changeBg.disabled = false }, 11000);
   picNum < 23 ? background(picNum += 1) : background(picNum = 0);
-  });
+});
 
 function background(newBg) {
-      document.body.style.backgroundImage =
-    "url('./assets/images/" + newBg +".jpg')";
+  const image = new Image();
+  image.src = `./assets/images/${newBg}.jpg`;
+
+  image.onload = function () {
+
+    document.body.style.backgroundImage = "url('./assets/images/" + newBg + ".jpg')";
+  };
 }
 
 function getName() {
@@ -102,7 +106,7 @@ getName();
 getFocus();
 getCity();
 
-name.addEventListener('click', function() {
+name.addEventListener('click', function () {
   if (!this.value.trim()) {
     this.value = localStorage.getItem('name');
     this.placeholder = this.value;
@@ -112,9 +116,9 @@ name.addEventListener('click', function() {
   this.value = '';
 });
 
-name.addEventListener('blur', function() {
+name.addEventListener('blur', function () {
   this.placeholder = '';
-  
+
   if (!this.value.trim()) {
     this.value = localStorage.getItem('name');
   } else {
@@ -122,17 +126,17 @@ name.addEventListener('blur', function() {
   }
 });
 
-name.addEventListener('keypress', function(e) {
-    if (e.type === 'keypress') {
-      if (e.which == 13 || e.keyCode == 13) {
-        this.blur();
-      }
-    } else {
-      localStorage.setItem('name', e.target.innerText);
+name.addEventListener('keypress', function (e) {
+  if (e.type === 'keypress') {
+    if (e.which == 13 || e.keyCode == 13) {
+      this.blur();
     }
+  } else {
+    localStorage.setItem('name', e.target.innerText);
+  }
 });
 
-focus.addEventListener('click', function() {
+focus.addEventListener('click', function () {
   if (!this.value.trim()) {
     this.value = localStorage.getItem('focus');
     this.placeholder = this.value;
@@ -142,9 +146,9 @@ focus.addEventListener('click', function() {
   this.value = '';
 });
 
-focus.addEventListener('blur', function() {
+focus.addEventListener('blur', function () {
   this.placeholder = '';
-  
+
   if (!this.value.trim()) {
     this.value = localStorage.getItem('focus');
   } else {
@@ -152,46 +156,47 @@ focus.addEventListener('blur', function() {
   }
 });
 
-focus.addEventListener('keypress', function(e) {
-    if (e.type === 'keypress') {
-      if (e.which == 13 || e.keyCode == 13) {
-        this.blur();
-      }
-    } else {
-      localStorage.setItem('focus', e.target.innerText);
+focus.addEventListener('keypress', function (e) {
+  if (e.type === 'keypress') {
+    if (e.which == 13 || e.keyCode == 13) {
+      this.blur();
     }
+  } else {
+    localStorage.setItem('focus', e.target.innerText);
+  }
 });
 
 
-async function getQuote() {  
-  const url = `https://quote-garden.herokuapp.com/api/v2/quotes/random`;  
+async function getQuote() {
+  const url = `https://quote-garden.herokuapp.com/api/v2/quotes/random`;
   const res = await fetch(url);
-  const data = await res.json(); 
+  const data = await res.json();
   blockquote.textContent = data.quote.quoteText;
   figcaption.textContent = data.quote.quoteAuthor;
 }
 document.addEventListener('DOMContentLoaded', getQuote);
 btn.addEventListener('click', getQuote);
 
-async function getWeather() {  
+async function getWeather() {
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=ru&appid=9f6362c93e0fc066f93134dfce25eeaf&units=metric`;
   const res = await fetch(url);
-  const data = await res.json(); 
+  const data = await res.json();
 
   if (data.cod != 200) {
     city.value = '';
     city.placeholder = 'Неверный ввод, ещё раз';
   } else {
     weatherIcon.className = 'weather-icon owf';
-  weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-  temperature.textContent = `${data.main.temp}°C ${data.weather[0].description}`;
-  weatherDescription.textContent = ` Скорость ветра: ${data.wind.speed} м/с` + ` Влажность воздуха: ${data.main.humidity} %`;
-  localStorage.setItem('city', city.value);
-}}
+    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+    temperature.textContent = `${data.main.temp}°C ${data.weather[0].description}`;
+    weatherDescription.textContent = ` Скорость ветра: ${data.wind.speed} м/с` + ` Влажность воздуха: ${data.main.humidity} %`;
+    localStorage.setItem('city', city.value);
+  }
+}
 
 getWeather();
 
-city.addEventListener('click', function() {
+city.addEventListener('click', function () {
   if (!this.value.trim()) {
     this.value = localStorage.getItem('city');
     this.placeholder = 'Ведите город';
@@ -201,9 +206,9 @@ city.addEventListener('click', function() {
   this.value = '';
 });
 
-city.addEventListener('blur', function() {
+city.addEventListener('blur', function () {
   this.placeholder = '';
-  
+
   if (!this.value.trim()) {
     this.value = localStorage.getItem('city');
   } else {
@@ -211,13 +216,13 @@ city.addEventListener('blur', function() {
   }
 });
 
-city.addEventListener('keypress', function(e) {
-    if (e.type === 'keypress') {
-      if (e.which == 13 || e.keyCode == 13) {
-        getWeather();
-        this.blur();
-      }
-    } else {
-      localStorage.setItem('city', e.target.innerText);
+city.addEventListener('keypress', function (e) {
+  if (e.type === 'keypress') {
+    if (e.which == 13 || e.keyCode == 13) {
+      getWeather();
+      this.blur();
     }
+  } else {
+    localStorage.setItem('city', e.target.innerText);
+  }
 });
