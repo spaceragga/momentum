@@ -63,6 +63,8 @@ function setBgGreet() {
 
 
 changeBg.addEventListener('click', () => {
+  changeBg.disabled = true;
+  setTimeout(function () { changeBg.disabled = false }, 500);
   picNum < 23 ? background(picNum += 1) : background(picNum = 0);
 });
 
@@ -168,6 +170,8 @@ focus.addEventListener('keypress', function (e) {
 
 
 async function getQuote() {
+  btn.disabled = true;
+  setTimeout(function () { btn.disabled = false }, 500);
   const url = `https://quote-garden.herokuapp.com/api/v2/quotes/random`;
   const res = await fetch(url);
   const data = await res.json();
