@@ -1,0 +1,152 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-size: cover;
+  color: white;
+  transition: background-image 1s ease-in-out;
+  text-shadow: 6px 2px 5px black;
+  padding-top: 7em;
+}
+
+.time {
+  font-size: 8em;
+}
+
+#doc_time {
+  font-size: 2rem;
+}
+
+.name {
+  font-size: 1em;
+  font-weight: bold;
+  font-family: monospace;
+  text-shadow: 6px 2px 5px black;
+}
+
+.focus {
+  font-size: 1.5em;
+  font-weight: bold;
+  font-family: monospace;
+  opacity: 0.8;
+  text-shadow: 6px 2px 5px black;
+  padding-bottom: 4rem;
+}
+
+.city {
+  font-size: 1.2em;
+  text-shadow: 2px 2px 3px black;
+}
+
+.wrapper-wether {
+  display: contents;
+}
+
+.temperature {
+  text-shadow: 2px 2px 3px black;
+}
+
+.weather-description {
+  text-shadow: 2px 2px 3px black;
+}
+
+h1 {
+  margin-bottom: 3rem;
+}
+
+h2 {
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+}
+
+.bg {
+  width: 60px;
+  height: 60px;
+  filter: drop-shadow(0px 0px 2px white);
+  margin: 1rem;
+  opacity: 0.8;
+  cursor: pointer;
+}
+.bg:hover {
+  filter: grayscale(.2);
+}
+.bg:active,
+.bg:focus {
+  outline: 0;
+}
+.bg:active{
+  transform: scale(1.02);
+  filter: drop-shadow(0px 0px 10px white);
+
+}
+
+
+.btn {
+  width: 60px;
+  height: 60px;
+  border: 0;
+  filter: drop-shadow(0px 0px 2px white);
+  opacity: 0.8;
+  cursor: pointer;
+
+  background-repeat: no-repeat;
+  margin: 10px;
+}
+.btn:hover {
+  filter: grayscale(.2);
+}
+.btn:active,
+.btn:focus {
+  outline: 0;
+}
+.btn:active{
+  transform: scale(1.02);
+  filter: drop-shadow(0px 0px 10px white);
+}
+
+@media (max-width: 700px) {
+  .time {
+    font-size: 5em;
+  }
+}
+
+.quote {
+  display: flex;
+  font: 1rem Georgia, serif;
+  margin: 0;
+  background: black;
+  opacity: 0.7;
+  border-radius: 1em;
+  max-width: 40rem;
+}
+.quote figcaption,
+.quote blockquote {
+  margin: 1em;
+}
+.quote figcaption {
+  text-align: right;
+}
+
+input {
+  display: block;
+  background: 0;
+  border: 0;
+  color: #fff;
+  font-weight: 500;
+  outline: 0;
+  text-align: center;
+  transition: border-color .2s ease;
+}
+
+.owf {
+  font-size: 4rem;
+}
